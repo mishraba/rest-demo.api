@@ -14,7 +14,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapGet("/", () => "API is running successfully");
+app.MapGet("/", () => "First CI/CD Pipeline API is running successfully");
 
 app.MapControllers();
 
