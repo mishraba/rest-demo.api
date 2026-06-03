@@ -86,7 +86,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy to DEV Web App'
             inputs:
-              azureSubscription: '4efd1e29-4ae9-4e85-b0fc-c871ef2da54c'
+              azureSubscription: 'rg-mishraba-practice-service-connection'
               appType: 'webApp'
               appName: 'web-dev-dotnet-mishraba'
               package: '$(Pipeline.Workspace)/drop/**/*.zip'
@@ -115,7 +115,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy to QA Web App'
             inputs:
-              azureSubscription: '4efd1e29-4ae9-4e85-b0fc-c871ef2da54c'
+              azureSubscription: 'rg-mishraba-practice-service-connection'
               appType: 'webApp'
               appName: 'web-qa-dotnet-mishraba'
               package: '$(Pipeline.Workspace)/drop/**/*.zip'
