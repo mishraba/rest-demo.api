@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace rest_demo.api.Controllers
 {
@@ -6,6 +7,15 @@ namespace rest_demo.api.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+
+
+        private readonly AppSettings _settings;
+
+        public WeatherForecastController(IOptions<AppSettings> settings)
+        {
+            _settings = settings.Value;
+        }
+
         private static readonly string[] Summaries =
         [
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -18,9 +28,10 @@ namespace rest_demo.api.Controllers
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)],
+                Env = _settings.Env
             })
             .ToArray();
-        }
+        }        
     }
 }
