@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
@@ -41,9 +42,9 @@ builder.Services.AddRazorPages(); // Or AddControllersWithViews()
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<EmployeeService>();
+//builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddGraphQLServer()
-    .AddQueryType<Query>().AddTypeExtension<EmployeeQuery>();
+    .AddQueryType<Query>();
 
 var app = builder.Build();
 
