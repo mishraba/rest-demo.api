@@ -1,7 +1,7 @@
 public record Employee(string Name, string Department);
 public class Query
 {
-    public IEnumerable<Employee> GetEmployees1()
+    public IEnumerable<Employee> GetEmployees()
     {
         return new List<Employee>
         {
