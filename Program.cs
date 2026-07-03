@@ -1,7 +1,8 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,9 @@ builder.Services.AddCors(options =>
                   .AllowAnyHeader();
         });
 });
+
+builder.Services.AddSingleton<SecretClient>(sc =>
+new SecretClient(new Uri("https://az-key-vault-mishraba1.vault.azure.net/"),new DefaultAzureCredential()));
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
