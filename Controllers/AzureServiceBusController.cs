@@ -1,19 +1,26 @@
 
 using Azure.Messaging.ServiceBus;
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Mvc;
 
 public class AzureServiceBusController : ControllerBase
 {
+    
+    private readonly SecretClient _secretClient;
+
+    public AzureServiceBusController(SecretClient secretClient)
+    {
+        _secretClient = secretClient;
+    }
+
     [HttpPost]
     [Route("SendMessage")]
     public async Task<IActionResult> SendMessage([FromBody] string message)
     {
-       string connectionString = "name";
-       
-       
+       KeyVaultSecret secret = await _secretClient.GetSecretAsync("ServiceBusConnectionString");
        string queueName = "orderqueue";
 
-        var client = new ServiceBusClient(connectionString);
+        var client = new ServiceBusClient(secret.Value);
         var sender = client.CreateSender(queueName);
 
         try

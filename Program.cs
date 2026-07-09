@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddSingleton<SecretClient>(sc =>
-new SecretClient(new Uri("https://az-key-vault-mishraba1.vault.azure.net/"),new DefaultAzureCredential()));
+new SecretClient(new Uri("https://kv-mishraba-demo.vault.azure.net/"),new DefaultAzureCredential()));
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
