@@ -17,10 +17,10 @@ public class AzureServiceBusController : ControllerBase
     [Route("SendMessage")]
     public async Task<IActionResult> SendMessage([FromBody] string message)
     {
-       //KeyVaultSecret secret = await _secretClient.GetSecretAsync("ServiceBusConnectionString");
+       KeyVaultSecret secret = await _secretClient.GetSecretAsync("ServiceBusConnectionString");
        string queueName = "orderqueue";
 
-        var client = new ServiceBusClient("Endpoint=sb://asb-mishraba.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=3JBIh0oB5h7gkGbvJYOMjiQ5we1F50t2p+ASbCRh3nE=");
+        var client = new ServiceBusClient(secret.Value);
         var sender = client.CreateSender(queueName);
 
         try
