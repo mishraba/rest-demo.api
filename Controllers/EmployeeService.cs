@@ -19,7 +19,7 @@ public class EmployeeService
             new EmployeeModel { Id = 5, Name = "Charlie Davis", Department = "Finance" },
             new EmployeeModel { Id = 6, Name = "Emily Wilson", Department = "Customer Support" },
             new EmployeeModel { Id = 7, Name = "David Lee", Department = "IT" },
-             new EmployeeModel { Id = 7, Name = "Banshidhar Mishra", Department = "ITIT" },
+             new EmployeeModel { Id = 8, Name = "Banshidhar Mishra", Department = "ITIT" },
         };
     }
 }
