@@ -18,33 +18,35 @@ public class MonitoringService : IMonitoringService
     }
 
     public async Task<MonitoringSummaryDto> GetSummaryAsync()
-    {
-        string query = """
-        search *
-        | summarize Count = count() by $table
-        | order by Count desc
+{
+    string query = """
+        AppRequests
+        | summarize
+            TotalRequests = count(),
+            FailedRequests = countif(Success == false),
+            AverageResponseTime = avg(DurationMs)
         """;
 
-        var response = await _logsClient.QueryWorkspaceAsync(
-            _workspaceId,
-            query,
-            new QueryTimeRange(TimeSpan.FromHours(24)));
+    var response = await _logsClient.QueryWorkspaceAsync(
+        _workspaceId,
+        query,
+        new QueryTimeRange(TimeSpan.FromHours(24)));
 
-        var table = response.Value.Table;
+    var table = response.Value.Table;
 
-        if (table.Rows.Count == 0)
-        {
-            return new MonitoringSummaryDto();
-        }
-
-        var row = table.Rows[0];
-
-        return new MonitoringSummaryDto
-        {
-            TotalRequests = Convert.ToInt64(row[0]),
-            FailedRequests = Convert.ToInt64(row[1]),
-            AverageResponseTime = Math.Round(
-                Convert.ToDouble(row[2]), 2)
-        };
+    if (table.Rows.Count == 0)
+    {
+        return new MonitoringSummaryDto();
     }
+
+    var row = table.Rows[0];
+
+    return new MonitoringSummaryDto
+    {
+        TotalRequests = Convert.ToInt64(row[0]),
+        FailedRequests = Convert.ToInt64(row[1]),
+        AverageResponseTime = Math.Round(
+            Convert.ToDouble(row[2]), 2)
+    };
+}
 }
