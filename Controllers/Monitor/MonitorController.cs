@@ -15,10 +15,23 @@ public class MonitoringController : ControllerBase
     [HttpGet("summary")]
     public async Task<IActionResult> GetSummary()
     {
+       try{
        Console.WriteLine(">>> SUMMARY API CALLED <<<");
         var result =
             await _monitoringService.GetSummaryAsync();
 
         return Ok(result);
+        }
+        catch (Exception ex)
+    {
+        Console.WriteLine(">>> SUMMARY API ERROR <<<");
+        Console.WriteLine(ex.ToString());
+
+        return StatusCode(500, new
+        {
+            error = ex.Message,
+            innerError = ex.InnerException?.Message
+        });
+    }
     }
 }
