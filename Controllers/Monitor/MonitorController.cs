@@ -16,7 +16,7 @@ public class MonitoringController : ControllerBase
     public async Task<IActionResult> GetSummary()
     {
        try{
-       Console.WriteLine(">>> SUMMARY API CALLED <<<");
+       Console.WriteLine(">>> SUMMARY API CALLED 11 <<<");
         var result =
             await _monitoringService.GetSummaryAsync();
 
