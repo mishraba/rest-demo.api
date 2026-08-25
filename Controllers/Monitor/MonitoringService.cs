@@ -8,7 +8,8 @@ public class MonitoringService : IMonitoringService
 
     public MonitoringService(IConfiguration configuration)
     {
-        _workspaceId = configuration["ApplicationInsights:WorkspaceId"]
+        _workspaceId =
+            configuration["ApplicationInsights:WorkspaceId"]
             ?? throw new InvalidOperationException(
                 "APPLICATIONINSIGHTS__WORKSPACEID is not configured.");
 
@@ -18,8 +19,6 @@ public class MonitoringService : IMonitoringService
 
     public async Task<MonitoringSummaryDto> GetSummaryAsync()
     {
-        Console.WriteLine(">>> MonitoringService started <<<");
-        
         string query = """
             requests
             | summarize
@@ -46,7 +45,8 @@ public class MonitoringService : IMonitoringService
         {
             TotalRequests = Convert.ToInt64(row[0]),
             FailedRequests = Convert.ToInt64(row[1]),
-            AverageResponseTime = Convert.ToDouble(row[2])
+            AverageResponseTime = Math.Round(
+                Convert.ToDouble(row[2]), 2)
         };
     }
 }
