@@ -7,17 +7,7 @@ using Azure.Monitor.OpenTelemetry.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
-
-builder.Services.AddOpenTelemetry()
-    .UseAzureMonitor(options =>
-    {
-        options.ConnectionString =
-            builder.Configuration["ApplicationInsights:ConnectionString"];
-
-            
-    });
+builder.Services.AddOpenTelemetry().UseAzureMonitor();
 
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddCors(options =>
