@@ -8,11 +8,15 @@ using Azure.Monitor.OpenTelemetry.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 
+
+
 builder.Services.AddOpenTelemetry()
     .UseAzureMonitor(options =>
     {
         options.ConnectionString =
             builder.Configuration["ApplicationInsights:ConnectionString"];
+
+            
     });
 
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
@@ -32,6 +36,8 @@ new SecretClient(new Uri("https://kv-mishraba-demo.vault.azure.net/"),new Defaul
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
+builder.Services.AddScoped<IMonitoringService, MonitoringService>();
 
 // Authentication
 builder.Services.AddAuthentication(options =>
