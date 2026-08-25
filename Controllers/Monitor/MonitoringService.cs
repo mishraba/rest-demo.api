@@ -18,6 +18,8 @@ public class MonitoringService : IMonitoringService
 
     public async Task<MonitoringSummaryDto> GetSummaryAsync()
     {
+        Console.WriteLine(">>> MonitoringService started <<<");
+        
         string query = """
             requests
             | summarize
