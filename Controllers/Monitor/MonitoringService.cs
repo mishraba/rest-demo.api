@@ -20,12 +20,10 @@ public class MonitoringService : IMonitoringService
     public async Task<MonitoringSummaryDto> GetSummaryAsync()
     {
         string query = """
-            requests
-            | summarize
-                TotalRequests = count(),
-                FailedRequests = countif(success == false),
-                AverageResponseTime = avg(duration)
-            """;
+        search *
+        | summarize Count = count() by $table
+        | order by Count desc
+        """;
 
         var response = await _logsClient.QueryWorkspaceAsync(
             _workspaceId,
