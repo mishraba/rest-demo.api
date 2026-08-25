@@ -7,6 +7,9 @@ using Azure.Monitor.OpenTelemetry.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
+
 builder.Services.AddOpenTelemetry().UseAzureMonitor();
 
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
